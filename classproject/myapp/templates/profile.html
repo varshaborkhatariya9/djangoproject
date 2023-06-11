@@ -1,0 +1,69 @@
+{% extends 'header.html' %}
+{% block content %}
+
+<html>
+    <head>
+        
+    </head>
+    <body>
+        <center>
+        <h1>Profile</h1>
+        <form action="{% url 'profile' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if msg %}
+            <b style="color: blue;">{{msg}}</b>
+            {% endif %}
+            <table>
+                <tr>
+                    <td>First Name</td>
+                    <td><input type="text" name="fname" value="{{user.fname}}"></td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td><input type="text" name="lname" value="{{user.lname}}"></td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    {% if user.gender == 'male' %}
+                    <td><input type="radio"  value="male" name="gender" checked>Male
+                        <input type="radio"  value="female" name="gender">Female
+                    </td>
+                    {% else %}
+                    <td><input type="radio"  value="male" name="gender">Male
+                        <input type="radio"  value="female" name="gender" checked>Female
+                    </td>
+                    {% endif %}
+                    
+                </tr>
+                <tr>
+                    <td>Mobile Number</td>
+                    <td><input type="text" name="mobile" value="{{user.mobile}}" ></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><input type="text" name="email" value="{{user.email}}" readonly></td>
+                </tr>
+                <tr>
+                    <td>City</td>
+                    <td><input type="text" name="city" value="{{user.city}}"></td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td><textarea name="address"  cols="22" rows="4" >{{user.address}}</textarea></td>
+                </tr>
+                
+                <tr>
+                    <td colspan="2" align="center"><img src="{{user.profile_pic.url}}" alt="" style="width: 150px;"></td>
+                </tr>
+                <tr>
+                    <td>Profile Photo</td>
+                    <td><input type="file" name="profilepic"></td>
+                </tr>
+                
+            </table>
+            <button type="submit" class="btn btn-primary">Update Profile</button>
+        </form>
+    </center>
+    </body>
+</html>
+{% endblock %}
